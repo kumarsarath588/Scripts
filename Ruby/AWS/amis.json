@@ -1,0 +1,27 @@
+{
+  "regions": {
+    "us-west-2": {
+      "ubuntu-14.04": "ami-5189a661",
+      "windows-2012r2": "ami-67c7ff57",
+      "windows-2008r2": "ami-57a39b67"
+    }
+  },
+  "usernames": {
+    "ubuntu-10.04": "ubuntu",
+    "ubuntu-12.04": "ubuntu",
+    "ubuntu-12.10": "ubuntu",
+    "ubuntu-13.04": "ubuntu",
+    "ubuntu-13.10": "ubuntu",
+    "ubuntu-14.04": "ubuntu",
+    "centos-6.4": "root",
+    "debian-7.1.0": "admin",
+    "windows-2008r2": "administrator",
+    "windows-2012r2": "administrator"
+  },
+  "references": {
+    "ubuntu": "http://uec-images.ubuntu.com/query/",
+    "debian": "https://wiki.debian.org/Cloud/AmazonEC2Image",
+    "centos": "http://wiki.centos.org/Cloud/AWS",
+    "windows": "http://aws.amazon.com/windows/"
+  }
+}
