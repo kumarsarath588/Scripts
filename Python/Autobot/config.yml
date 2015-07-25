@@ -8,5 +8,5 @@ config:
   user: 'ec2-user'
   operation:
     type: script
-    file: 'script.sh'
+    file: 'script1.sh'
 

@@ -30,7 +30,7 @@ class connect_to_machine:
 		print "Authentication failed when connecting to %s" % self.host
 		sys.exit(1)
 	    except:
-		print "Could not SSH to %s, waiting for it to start" % self.host
+		print "Could not SSH to %s, waiting for (%i/120) it to start" % (self.host, i)
 		i += 5
 		time.sleep(5)
 
