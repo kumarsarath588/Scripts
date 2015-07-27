@@ -1,6 +1,5 @@
 #!./venv/bin/python
 
-
 import boto.ec2
 import yaml
 import time
@@ -9,23 +8,15 @@ import sys
 from ec2_creation import ec2_creation
 from execute_ssh_comand import execute_ssh_command
 from execute_copy import execute_copy
+from connect_ec2 import create_ec2_connection
+
+def mandatory_items(path,items):
+    for item in items:
+      if not path[item]:
+         print "Error: mandatory item '%s' not found" % str(item)
+
 
 fname='config.yml'
-def create_ec2_connection(INPUTS):
-  """
-  Connect to ec2 instance with respect to the provided region name
-  """
-  region=INPUTS['config']['region']
-  default_region='us-east-1'
-  try:
-    conn = boto.ec2.connect_to_region(region)
-    if str(conn.DefaultRegionName) != default_region:
-        print "Invalid Region Name"
-        sys.exit(1)
-  except:
-    print 'Error Occured while connecting to region'
-    sys.exit(1)
-  return conn
 
 if not os.path.isfile(fname):
    print "Error: config file 'config.yml' not found"
@@ -35,6 +26,16 @@ with open('config.yml', "r") as yaml_file:
         INPUTS=yaml.load(yaml_file)
 
 conn=''
+#man=['']
+#if not INPUTS['name'] or not INPUTS['config'] or not INPUTS['config']['provider']:
+ 
+try:
+   INPUTS['name']
+   INPUTS['config']
+   INPUTS['config']['provider']
+except KeyError:
+   print "Error: define 'name/config/provider' in 'config.yml'"
+   sys.exit(1)
 if INPUTS['config']['provider'] == 'ec2':
    conn=create_ec2_connection(INPUTS)
    ec2=ec2_creation(INPUTS,conn)
@@ -53,5 +54,7 @@ if INPUTS['config']['provider'] == 'ec2':
    else:
       print 'Error: Invalid operation \'%s\'', INPUTS['config']['operation']['type']
    ec2.terminate_ec2_instance(id=status[0].instances[0].id)
+elif INPUTS['config']['provider'] == 'ssh':
+   print "ssh"
 else:
    print 'Error: Invalid provider \'%s\'', INPUTS['config']['provider']
